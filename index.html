@@ -107,6 +107,17 @@
         const trocoEsperado = [20, 20, 20, 20];
         assert.deepEqual(trocoCalculado, trocoEsperado);
       });
+
+      test("calcularTrocoLimitado(400,500, new Estoque(0,2,5,10,0,0,0))", (assert)=> { 
+        const trocoCalculado = calcularTrocoLimitado(
+          400,
+          500,
+          new Estoque(0, 2, 5, 10, 0, 0, 0)
+        )
+        const trocoEsperado = [50,50]
+        assert.deepEqual(trocoCalculado, trocoEsperado)
+      })
+
     </script>
   </body>
 </html>
