@@ -67,7 +67,16 @@
         let troco = [];
         let diff = valorPago - precoDoProduto;
 
-        troco = [20, 20, 20, 20];
+        if (diff != 0) {
+          cedulas.forEach((cedula) => {
+            console.log(`Estoque de ${cedula}: ${estoque.estoque[cedula]}`);
+            while (diff >= cedula && estoque.estoque[`${cedula}`] > 0) {
+              troco.push(cedula);
+              diff -= cedula;
+              estoque[cedula] -= 1;
+            }
+          });
+        }
         return troco;
       };
     </script>
@@ -108,16 +117,15 @@
         assert.deepEqual(trocoCalculado, trocoEsperado);
       });
 
-      test("calcularTrocoLimitado(400,500, new Estoque(0,2,5,10,0,0,0))", (assert)=> { 
+      test("calcularTrocoLimitado(400,500, new Estoque(0,2,5,10,0,0,0))", (assert) => {
         const trocoCalculado = calcularTrocoLimitado(
           400,
           500,
           new Estoque(0, 2, 5, 10, 0, 0, 0)
-        )
-        const trocoEsperado = [50,50]
-        assert.deepEqual(trocoCalculado, trocoEsperado)
-      })
-
+        );
+        const trocoEsperado = [50, 50];
+        assert.deepEqual(trocoCalculado, trocoEsperado);
+      });
     </script>
   </body>
 </html>
