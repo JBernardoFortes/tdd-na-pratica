@@ -23,7 +23,28 @@
     <script src="https://code.jquery.com/qunit/qunit-1.18.0.js"></script>
 
     <script>
-      const calcularTroco = (precoDoProduto, valorPago) => {
+      class Estoque {
+        constructor(
+          cem = 0,
+          cinq = 0,
+          vinte = 0,
+          dez = 0,
+          cinco = 0,
+          dois = 0,
+          um = 0
+        ) {
+          this.estoque = {
+            100: cem,
+            50: cinq,
+            20: vinte,
+            10: dez,
+            5: cinco,
+            2: dois,
+            1: um,
+          };
+        }
+      }
+      const calcularTroco = (precoDoProduto, valorPago, estoque) => {
         const cedulas = [100, 50, 20, 10, 5, 2, 1];
         let troco = [];
         let diff = valorPago - precoDoProduto;
@@ -40,6 +61,8 @@
 
         return troco;
       };
+
+      
     </script>
 
     <script>
@@ -65,6 +88,16 @@
       test("calcularTroco(486,600) deve retornar [100,10,2,2]", (assert) => {
         const trocoCalculado = calcularTroco(486, 600);
         const trocoEsperado = [100, 10, 2, 2];
+        assert.deepEqual(trocoCalculado, trocoEsperado);
+      });
+
+      test("calcularTrocoLimitado(200,280, new Estoque(1,0,5,10,0,0,0))", (assert) => {
+        const trocoCalculado = calcularTroco(
+          200,
+          280,
+          new Estoque(1, 0, 5, 10, 0, 0, 0)
+        );
+        const trocoEsperado = [20, 20, 20, 20];
         assert.deepEqual(trocoCalculado, trocoEsperado);
       });
     </script>
